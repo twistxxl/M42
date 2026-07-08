@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  linkHref?: string;
+  linkLabel?: string;
+}
+const { title, description, linkHref, linkLabel = 'Подробнее →' } = Astro.props;
+---
+
+<div class="card" style="padding:32px;display:flex;flex-direction:column;gap:14px">
+  <div style="font-size:20px;font-weight:700">{title}</div>
+  <p style="margin:0;font-size:16px;line-height:1.6;color:var(--muted);flex:1">{description}</p>
+  {linkHref && <a href={linkHref} style="font-size:16px;font-weight:600;color:var(--fg)">{linkLabel}</a>}
+</div>

@@ -1,0 +1,12 @@
+---
+interface Props {
+  n: string;
+  l: string;
+}
+const { n, l } = Astro.props;
+---
+
+<div class="card" style="padding:24px">
+  <div style="font-size:34px;font-weight:800;letter-spacing:-0.02em;margin-bottom:6px">{n}</div>
+  <div style="font-size:15px;line-height:1.4;color:var(--muted)">{l}</div>
+</div>

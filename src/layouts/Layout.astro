@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer.astro';
+import FloatingCta from '../components/FloatingCta.astro';
+import { site, navItems } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  showFloatingCta?: boolean;
+}
+
+const {
+  title,
+  description = 'Продуктовый инженер полного цикла: сайты, боты и веб-приложения, которые зарабатывают деньги.',
+  showFloatingCta = true,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const pageTitle = title ? `${title} — ${site.name}.tech` : `${site.name}.tech`;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  </head>
+  <body>
+    <Nav client:load items={navItems} currentPath={currentPath} telegramUrl={site.telegramUrl} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    {showFloatingCta && <FloatingCta />}
+  </body>
+</html>

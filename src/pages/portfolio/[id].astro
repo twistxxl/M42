@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MetricCard from '../../components/MetricCard.astro';
+import Button from '../../components/Button.astro';
+import { cases } from '../../data/cases';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return cases.map((c) => ({
+    params: { id: c.id },
+    props: { item: c },
+  }));
+}
+
+const { item } = Astro.props;
+---
+
+<Layout title={item.title} description={item.task}>
+  <div class="container-narrow" style="padding:clamp(104px,16vw,140px) 20px clamp(56px,10vw,96px)">
+    <a href="/portfolio" style="font-size:16px;color:var(--muted)">← Все проекты</a>
+
+    <div
+      class="mono"
+      style="margin:32px 0 12px;align-self:flex-start;display:inline-block;font-size:12px;letter-spacing:0.1em;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:4px 8px"
+    >
+      {item.cat.toUpperCase()}
+    </div>
+    <h1 class="h1" style="margin:0 0 40px;text-wrap:balance">{item.title}</h1>
+
+    <div
+      class="ph-block"
+      style="height:320px;border:1px solid var(--border);border-radius:8px;margin-bottom:56px"
+    >
+      <span class="mono" style="font-size:13px;color:var(--muted)">{item.ph}</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:40px">
+      <div>
+        <div class="eyebrow" style="margin-bottom:12px">ЗАДАЧА КЛИЕНТА</div>
+        <p style="margin:0;font-size:18px;line-height:1.6">{item.fullTask}</p>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:12px">ЧТО БЫЛО СДЕЛАНО</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          {
+            item.done.map((d) => (
+              <div style="display:flex;gap:12px;font-size:17px;line-height:1.55">
+                <span style="color:var(--muted)">—</span>
+                <span>{d.text}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:12px">СТЕК</div>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:var(--muted)">{item.stack}</p>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px">РЕЗУЛЬТАТ В ЦИФРАХ</div>
+        <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+          {item.metrics.map((m) => <MetricCard n={m.n} l={m.l} />)}
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:48px;text-align:center">
+        <Button href={site.telegramUrl} external>Хочу так же →</Button>
+      </div>
+    </div>
+  </div>
+</Layout>

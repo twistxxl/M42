@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+
+const services = [
+  {
+    title: 'Сайт / Лендинг',
+    for: 'Бизнес которому нужны клиенты из интернета',
+    includes: 'Дизайн, разработка, адаптивная вёрстка, базовое SEO',
+    time: 'от 2 недель',
+  },
+  {
+    title: 'Веб-приложение / Бот',
+    for: 'Бизнес который хочет автоматизировать процессы',
+    includes: 'Проектирование, разработка, запуск, поддержка',
+    time: 'от 4 недель',
+  },
+  {
+    title: 'Продукт с нуля',
+    for: 'Есть идея, нет понимания как реализовать',
+    includes: 'Продуктовый анализ, MVP, запуск',
+    time: 'Индивидуально',
+  },
+  {
+    title: 'Масштабирование MVP',
+    for: 'Идея выстрелила, продукт не справляется с ростом',
+    includes: 'Аудит, переработка архитектуры, масштабирование',
+    time: 'Индивидуально',
+  },
+];
+---
+
+<Layout title="Услуги">
+  <div class="container-narrow" style="padding:clamp(104px,16vw,140px) 20px clamp(56px,10vw,96px)">
+    <h1 class="h1" style="margin-bottom:56px">Услуги</h1>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+      {
+        services.map((s) => (
+          <div class="card" style="padding:clamp(24px,5vw,40px);display:flex;flex-direction:column;gap:20px">
+            <div style="font-size:26px;font-weight:700;letter-spacing:-0.01em">{s.title}</div>
+            <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+              <div>
+                <div class="eyebrow" style="font-size:12px;margin-bottom:8px">ДЛЯ КОГО</div>
+                <div style="font-size:16px;line-height:1.55">{s.for}</div>
+              </div>
+              <div>
+                <div class="eyebrow" style="font-size:12px;margin-bottom:8px">ЧТО ВХОДИТ</div>
+                <div style="font-size:16px;line-height:1.55">{s.includes}</div>
+              </div>
+              <div>
+                <div class="eyebrow" style="font-size:12px;margin-bottom:8px">СРОК</div>
+                <div style="font-size:16px;line-height:1.55">{s.time}</div>
+              </div>
+            </div>
+            <a
+              href={site.telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+              style="align-self:flex-start;font-size:16px;padding:13px 22px"
+            >
+              Обсудить стоимость →
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

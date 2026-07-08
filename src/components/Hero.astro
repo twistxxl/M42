@@ -1,0 +1,96 @@
+---
+import Button from './Button.astro';
+import { site } from '../data/site';
+
+interface Props {
+  variant?: 'typo' | 'grid' | 'split';
+}
+
+const { variant = 'typo' } = Astro.props;
+const headline = 'Строю продукты которые зарабатывают.';
+const sub = 'Разработка полного цикла — от идеи до запуска. Понимаю бизнес, а не только код.';
+---
+
+{
+  variant === 'typo' && (
+    <div style="min-height:100svh;display:flex;align-items:center;border-bottom:1px solid var(--border)">
+      <div class="container" style="padding:clamp(96px,14vw,120px) 20px 64px">
+        <div class="eyebrow" style="margin-bottom:28px">{site.name}.TECH — {site.tagline}</div>
+        <h1 class="h1" style="margin:0 0 28px;font-size:clamp(42px,7.5vw,92px);max-width:16ch;text-wrap:balance">
+          {headline}
+        </h1>
+        <p style="margin:0 0 40px;font-size:20px;line-height:1.6;color:var(--muted);max-width:52ch">{sub}</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+          <Button href={site.telegramUrl} external>Написать в Telegram →</Button>
+          <a href="/portfolio" style="font-size:17px;font-weight:500;padding:16px 20px;color:var(--muted)">
+            Смотреть проекты →
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{
+  variant === 'grid' && (
+    <div
+      style="min-height:100svh;display:flex;align-items:center;position:relative;border-bottom:1px solid var(--border);background-image:linear-gradient(#1A1A1A 1px,transparent 1px),linear-gradient(90deg,#1A1A1A 1px,transparent 1px);background-size:72px 72px;background-position:center"
+    >
+      <div class="mono hero-grid-corner" style="position:absolute;top:88px;left:24px;font-size:12px;letter-spacing:0.14em;color:var(--muted)">
+        {site.name}.TECH
+      </div>
+      <div class="mono hero-grid-corner" style="position:absolute;top:88px;right:24px;font-size:12px;letter-spacing:0.14em;color:var(--muted)">
+        EST. 2020
+      </div>
+      <div class="mono hero-grid-corner" style="position:absolute;bottom:28px;left:24px;font-size:12px;letter-spacing:0.14em;color:var(--muted)">
+        42 ПРОЕКТА / 10 СТРАН
+      </div>
+      <div class="mono hero-grid-corner" style="position:absolute;bottom:28px;right:24px;font-size:12px;letter-spacing:0.14em;color:var(--muted)">
+        ↓ SCROLL
+      </div>
+      <div style="max-width:900px;margin:0 auto;padding:clamp(96px,14vw,120px) 20px 64px;width:100%;box-sizing:border-box;text-align:center">
+        <div class="eyebrow" style="margin-bottom:28px">[ {site.tagline} ]</div>
+        <h1 class="h1" style="margin:0 0 28px;font-size:clamp(40px,6.5vw,80px);text-wrap:balance">{headline}</h1>
+        <p style="margin:0 auto 40px;font-size:20px;line-height:1.6;color:var(--muted);max-width:48ch">{sub}</p>
+        <Button href={site.telegramUrl} external>Написать в Telegram →</Button>
+      </div>
+      <style>
+        {`@media (max-width: 700px) { .hero-grid-corner { display: none; } }`}
+      </style>
+    </div>
+  )
+}
+
+{
+  variant === 'split' && (
+    <div style="min-height:100svh;display:flex;align-items:center;border-bottom:1px solid var(--border)">
+      <div
+        class="container"
+        style="padding:clamp(96px,14vw,120px) 20px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:56px;align-items:center"
+      >
+        <div>
+          <div class="eyebrow" style="margin-bottom:28px">{site.name}.TECH</div>
+          <h1 class="h1" style="margin:0 0 28px;font-size:clamp(38px,5vw,64px);line-height:1.06;text-wrap:balance">
+            Продуктовый инженер. {headline}
+          </h1>
+          <p style="margin:0 0 40px;font-size:19px;line-height:1.6;color:var(--muted);max-width:46ch">{sub}</p>
+          <Button href={site.telegramUrl} external>Написать в Telegram →</Button>
+        </div>
+        <div class="card mono" style="background:var(--bg-raised)">
+          <div style="padding:18px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:14px">
+            <span style="color:var(--muted)">ОПЫТ</span><span>6 ЛЕТ</span>
+          </div>
+          <div style="padding:18px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:14px">
+            <span style="color:var(--muted)">ЗАПУЩЕНО</span><span>42 ПРОЕКТА</span>
+          </div>
+          <div style="padding:18px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-size:14px">
+            <span style="color:var(--muted)">ГЕОГРАФИЯ</span><span>10 СТРАН</span>
+          </div>
+          <div style="padding:18px 24px;display:flex;justify-content:space-between;font-size:14px">
+            <span style="color:var(--muted)">ФОКУС</span><span>ДЕНЬГИ КЛИЕНТА</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

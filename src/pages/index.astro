@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CaseCard from '../components/CaseCard.astro';
+import Button from '../components/Button.astro';
+import { cases } from '../data/cases';
+import { site } from '../data/site';
+
+const pains = [
+  'Разработчик сделал — но это не продаёт',
+  'Потратили бюджет на ненужные фичи',
+  'Проект затянулся в 3 раза дольше срока',
+  'Идея выстрелила, но слабый продукт тормозит рост. Каждый день промедления — потерянные клиенты',
+];
+
+const services = [
+  { title: 'Сайт / Лендинг', description: 'Продающий сайт который конвертирует посетителей в клиентов. Не просто красиво — а работает на бизнес.' },
+  { title: 'Веб-приложение / Бот', description: 'Автоматизирую процессы которые съедают время и деньги. От простого бота до сложного сервиса.' },
+  { title: 'Продукт с нуля', description: 'Есть идея но не знаете с чего начать? Провожу от концепции до запуска с продуктовым мышлением на каждом этапе.' },
+  { title: 'Масштабирование MVP', description: 'Идея выстрелила, но продукт не вывозит рост? Перестраиваю под серьёзные нагрузки и новые цели.' },
+];
+
+// те же три кейса, что и в исходном макете (первый, второй и последний)
+const topCases = [cases[0], cases[1], cases[5]];
+---
+
+<Layout title="Продуктовый инженер">
+  <Hero variant="typo" />
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px">Узнаёте себя?</h2>
+      <div class="grid-auto">
+        {
+          pains.map((text, i) => (
+            <div class="card" style="padding:28px">
+              <div class="mono" style="font-size:13px;color:var(--muted);margin-bottom:16px">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <div style="font-size:18px;font-weight:600;line-height:1.45">{text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px;max-width:26ch;text-wrap:balance">
+        Разработка которая работает на ваш бизнес, а не на красивое резюме разработчика
+      </h2>
+      <ComparisonTable />
+      <div style="margin-top:40px">
+        <Button href={site.telegramUrl} external>Написать в Telegram →</Button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px">Что я делаю</h2>
+      <div class="grid-auto">
+        {services.map((s) => <ServiceCard title={s.title} description={s.description} linkHref="/services" />)}
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px">Проекты которые уже работают</h2>
+      <div class="grid-auto">
+        {topCases.map((c) => <CaseCard item={c} />)}
+      </div>
+      <div style="margin-top:40px">
+        <a href="/portfolio" class="btn btn-ghost" style="font-size:16px;padding:14px 24px">Смотреть все проекты →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container" style="padding:clamp(72px,12vw,120px) 20px;text-align:center">
+      <h2 style="margin:0 0 16px;font-size:clamp(32px,4.5vw,56px);font-weight:800;letter-spacing:-0.03em">
+        Есть идея? Разберём за 15 минут.
+      </h2>
+      <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:var(--muted)">
+        Без лишних вопросов — просто напиши что хочешь сделать.
+      </p>
+      <Button href={site.telegramUrl} external>Написать в Telegram →</Button>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,29 @@
+---
+const rows: [string, string][] = [
+  ['Делает что сказали', 'Говорит что нужно, а что лишнее'],
+  ['Думает кодом', 'Думает деньгами клиента'],
+  ['Сдал проект и забыл', 'Считает результат бизнеса'],
+  ['Затягивает сроки', 'Чёткие этапы и дедлайны'],
+  ['Берёт за фичи', 'Берёт за результат'],
+];
+const cellStyle = 'padding:clamp(14px,2.5vw,20px) clamp(12px,3vw,24px);font-size:16px;line-height:1.5';
+---
+
+<div class="card" style="overflow:hidden">
+  <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--bg-raised);border-bottom:1px solid var(--border)">
+    <div class="mono" style={`${cellStyle};font-size:13px;letter-spacing:0.1em;color:var(--muted);border-right:1px solid var(--border)`}>
+      ОБЫЧНЫЙ РАЗРАБОТЧИК
+    </div>
+    <div class="mono" style={`${cellStyle};font-size:13px;letter-spacing:0.1em;color:var(--fg)`}>СО МНОЙ</div>
+  </div>
+  {
+    rows.map(([left, right], i) => (
+      <div
+        style={`display:grid;grid-template-columns:1fr 1fr;${i < rows.length - 1 ? 'border-bottom:1px solid var(--border)' : ''}`}
+      >
+        <div style={`${cellStyle};color:var(--muted);border-right:1px solid var(--border)`}>{left}</div>
+        <div style={`${cellStyle};font-weight:500`}>{right}</div>
+      </div>
+    ))
+  }
+</div>

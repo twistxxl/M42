@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'ghost';
+  external?: boolean;
+  class?: string;
+}
+
+const { href, variant = 'primary', external = false, class: className = '' } = Astro.props;
+const cls = `btn ${variant === 'primary' ? 'btn-primary' : 'btn-ghost'} ${className}`.trim();
+---
+
+<a
+  href={href}
+  class={cls}
+  style="font-size:17px;padding:16px 28px;"
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  <slot />
+</a>
