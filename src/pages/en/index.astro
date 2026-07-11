@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import Button from '../../components/Button.astro';
+import { getCases } from '../../data/cases';
+import { site } from '../../data/site';
+
+const pains = [
+  "A developer built it — but it doesn't sell",
+  "Ran ads, got traffic — but the money doesn't come back",
+  'Managers are drowning in busywork instead of closing deals',
+  'Budget spent on features nobody uses',
+  'The idea took off, but a weak product is holding back growth. Every day costs you customers',
+  'Every website tweak means another invoice from a developer',
+];
+
+const services = [
+  { title: 'Website / Landing page', description: "A selling website that converts visitors into customers. Not just pretty — it works for the business." },
+  { title: 'Web app / Bot', description: 'I automate processes that eat up time and money. From a simple bot to a complex service.' },
+  { title: 'Mobile app', description: 'I build native and cross-platform apps for iOS and Android — from idea to publishing in the app stores.' },
+  { title: 'Product from scratch', description: "Have an idea but don't know where to start? I guide you from concept to launch with product thinking at every stage." },
+  { title: "Scaling an MVP", description: "Idea took off, but the product can't handle the growth? I rebuild it for serious load and new goals." },
+  { title: "Fixing an existing product", description: "Previous developer couldn't deliver or disappeared? I dig into someone else's code and get the product to a real result." },
+];
+
+const cases = getCases('en');
+// same three cases as in the original layout (first, second and last of the picked set)
+const topCases = [cases[0], cases[1], cases[5]];
+---
+
+<Layout title="Product Engineer" lang="en">
+  <Hero variant="typo" lang="en" />
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px">Does this sound familiar?</h2>
+      <div class="grid-auto">
+        {
+          pains.map((text, i) => (
+            <div class="card" style="padding:28px">
+              <div class="mono" style="font-size:13px;color:var(--muted);margin-bottom:16px">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <div style="font-size:18px;font-weight:600;line-height:1.45">{text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px;max-width:26ch;text-wrap:balance">
+        Development that works for your business, not a developer's pretty resume
+      </h2>
+      <ComparisonTable lang="en" />
+      <div style="margin-top:40px">
+        <Button href={site.telegramUrl} external>Message on Telegram →</Button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px">What I do</h2>
+      <div class="grid-auto">
+        {services.map((s) => <ServiceCard title={s.title} description={s.description} linkHref="/en/services" linkLabel="Learn more →" />)}
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="h2" style="margin-bottom:48px">Projects already at work</h2>
+      <div class="grid-auto">
+        {topCases.map((c) => <CaseCard item={c} lang="en" />)}
+      </div>
+      <div style="margin-top:40px">
+        <a href="/en/portfolio" class="btn btn-ghost" style="font-size:16px;padding:14px 24px">View all projects →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container" style="padding:clamp(72px,12vw,120px) 20px;text-align:center">
+      <h2 style="margin:0 0 16px;font-size:clamp(32px,4.5vw,56px);font-weight:800;letter-spacing:-0.03em">
+        Have an idea? Let's talk it through in 15 minutes.
+      </h2>
+      <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:var(--muted)">
+        No fuss — just tell me what you want to build.
+      </p>
+      <Button href={site.telegramUrl} external>Message on Telegram →</Button>
+    </div>
+  </div>
+</Layout>

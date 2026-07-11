@@ -3,45 +3,58 @@ import '../styles/global.css';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer.astro';
 import FloatingCta from '../components/FloatingCta.astro';
-import { site, navItems } from '../data/site';
+import AnimatedBackground from '../components/AnimatedBackground.astro';
+import CustomCursor from '../components/CustomCursor';
+import { site, getNavItems } from '../data/site';
+import { useTranslations, withLangPrefix, type Lang } from '../i18n/ui';
 
 interface Props {
   title: string;
   description?: string;
   showFloatingCta?: boolean;
+  lang?: Lang;
 }
 
 const {
   title,
-  description = 'Продуктовый инженер полного цикла: сайты, боты и веб-приложения, которые зарабатывают деньги.',
+  description,
   showFloatingCta = true,
+  lang = 'ru',
 } = Astro.props;
 
+const t = useTranslations(lang);
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const pageTitle = title ? `${title} — ${site.name}.tech` : `${site.name}.tech`;
+const pageDescription = description ?? t('meta.defaultDescription');
+const altPath = withLangPrefix(currentPath, lang === 'en' ? 'ru' : 'en');
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-wght-normal.woff2" crossorigin />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="alternate" hreflang={lang === 'en' ? 'ru' : 'en'} href={new URL(altPath, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(withLangPrefix(currentPath, 'ru'), Astro.site)} />
   </head>
   <body>
-    <Nav client:load items={navItems} currentPath={currentPath} telegramUrl={site.telegramUrl} />
+    <AnimatedBackground />
+    <CustomCursor client:load />
+    <Nav client:load items={getNavItems(lang)} currentPath={currentPath} telegramUrl={site.telegramUrl} ctaLabel={t('cta.telegram')} menuOpenLabel={t('nav.menuOpen')} menuCloseLabel={t('nav.menuClose')} />
 
     <main>
       <slot />
     </main>
 
     <Footer />
-    {showFloatingCta && <FloatingCta />}
+    {showFloatingCta && <FloatingCta lang={lang} />}
   </body>
 </html>

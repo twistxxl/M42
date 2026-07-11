@@ -1,0 +1,85 @@
+---
+---
+
+<div class="bg-fx" aria-hidden="true">
+  <span class="bg-glow bg-glow-1"></span>
+  <span class="bg-glow bg-glow-2"></span>
+  <span class="bg-glow bg-glow-3"></span>
+  <span class="bg-grid"></span>
+</div>
+
+<style>
+  .bg-fx {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+  }
+
+  .bg-glow-1 {
+    width: 52vw;
+    height: 52vw;
+    top: -18vw;
+    left: -12vw;
+    background: radial-gradient(circle at 35% 35%, rgba(245, 245, 245, 0.22), transparent 68%);
+    animation: drift1 22s ease-in-out infinite alternate;
+  }
+
+  .bg-glow-2 {
+    width: 42vw;
+    height: 42vw;
+    bottom: -16vw;
+    right: -10vw;
+    background: radial-gradient(circle at 60% 45%, rgba(245, 245, 245, 0.18), transparent 70%);
+    animation: drift2 26s ease-in-out infinite alternate;
+  }
+
+  .bg-glow-3 {
+    width: 34vw;
+    height: 34vw;
+    top: 32%;
+    left: 58%;
+    background: radial-gradient(circle at 50% 50%, rgba(245, 245, 245, 0.15), transparent 72%);
+    animation: drift3 18s ease-in-out infinite alternate;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: -2px;
+    background-image:
+      linear-gradient(#1a1a1a 1px, transparent 1px),
+      linear-gradient(90deg, #1a1a1a 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.4;
+    mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, black 35%, transparent 88%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, black 35%, transparent 88%);
+  }
+
+  @keyframes drift1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(10vw, 12vw) scale(1.2); }
+  }
+
+  @keyframes drift2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-12vw, -9vw) scale(1.15); }
+  }
+
+  @keyframes drift3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-13vw, 9vw) scale(0.85); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-glow {
+      animation: none;
+    }
+  }
+</style>

@@ -7,4 +7,11 @@ export default defineConfig({
   site: 'https://m42.tech',
   output: 'static',
   integrations: [react()],
+  i18n: {
+    locales: ['ru', 'en'],
+    defaultLocale: 'ru',
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
 });

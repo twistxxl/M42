@@ -1,29 +1,37 @@
 ---
 import type { CaseItem } from '../data/cases';
+import { categoryLabels, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   item: CaseItem;
+  lang?: Lang;
 }
 
-const { item } = Astro.props;
+const { item, lang = 'ru' } = Astro.props;
+const t = useTranslations(lang);
+const prefix = lang === 'en' ? '/en' : '';
 ---
 
 <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
   <div class="ph-block" style="height:180px;border-bottom:1px solid var(--border)">
-    <span class="mono" style="font-size:13px;color:var(--muted)">{item.ph}</span>
+    {item.img ? (
+      <img src={item.img} alt={item.title} style="width:100%;height:100%;object-fit:cover" />
+    ) : (
+      <span class="mono" style="font-size:13px;color:var(--muted)">{item.ph}</span>
+    )}
   </div>
   <div style="padding:24px;display:flex;flex-direction:column;gap:10px;flex:1">
     <div
       class="mono"
       style="align-self:flex-start;font-size:12px;letter-spacing:0.1em;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:4px 8px"
     >
-      {item.cat.toUpperCase()}
+      {categoryLabels[lang][item.cat].toUpperCase()}
     </div>
     <div style="font-size:19px;font-weight:700;line-height:1.3">{item.title}</div>
     <div style="font-size:16px;line-height:1.5;color:var(--muted)">{item.task}</div>
     <div style="font-size:16px;line-height:1.5;font-weight:500;flex:1">{item.result}</div>
-    <a href={`/portfolio/${item.id}`} style="font-size:16px;font-weight:600;margin-top:6px">
-      Подробнее →
+    <a href={`${prefix}/portfolio/${item.id}`} style="font-size:16px;font-weight:600;margin-top:6px">
+      {t('cta.readMore')}
     </a>
   </div>
 </div>

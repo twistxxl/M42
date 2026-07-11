@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { site } from '../../data/site';
+
+const services = [
+  {
+    title: 'Website / Landing page',
+    for: 'A business that needs customers from the internet',
+    includes: 'Design, development, responsive layout, basic SEO',
+    time: 'from 2 weeks',
+  },
+  {
+    title: 'Web app / Bot',
+    for: 'A business that wants to automate processes',
+    includes: 'Planning, development, launch, support',
+    time: 'from 4 weeks',
+  },
+  {
+    title: 'Product from scratch',
+    for: "You have an idea, but no idea how to build it",
+    includes: 'Product analysis, MVP, launch',
+    time: 'Custom',
+  },
+  {
+    title: 'Scaling an MVP',
+    for: "The idea took off, the product can't handle the growth",
+    includes: 'Audit, architecture rework, scaling',
+    time: 'Custom',
+  },
+];
+---
+
+<Layout title="Services" lang="en">
+  <div class="container-narrow" style="padding:clamp(104px,16vw,140px) 20px clamp(56px,10vw,96px)">
+    <h1 class="h1" style="margin-bottom:56px">Services</h1>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+      {
+        services.map((s) => (
+          <div class="card" style="padding:clamp(24px,5vw,40px);display:flex;flex-direction:column;gap:20px">
+            <div style="font-size:26px;font-weight:700;letter-spacing:-0.01em">{s.title}</div>
+            <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+              <div>
+                <div class="eyebrow" style="font-size:12px;margin-bottom:8px">WHO IT'S FOR</div>
+                <div style="font-size:16px;line-height:1.55">{s.for}</div>
+              </div>
+              <div>
+                <div class="eyebrow" style="font-size:12px;margin-bottom:8px">WHAT'S INCLUDED</div>
+                <div style="font-size:16px;line-height:1.55">{s.includes}</div>
+              </div>
+              <div>
+                <div class="eyebrow" style="font-size:12px;margin-bottom:8px">TIMELINE</div>
+                <div style="font-size:16px;line-height:1.55">{s.time}</div>
+              </div>
+            </div>
+            <a
+              href={site.telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+              style="align-self:flex-start;font-size:16px;padding:13px 22px"
+            >
+              Discuss pricing →
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

@@ -1,20 +1,38 @@
 ---
-const rows: [string, string][] = [
-  ['Делает что сказали', 'Говорит что нужно, а что лишнее'],
-  ['Думает кодом', 'Думает деньгами клиента'],
-  ['Сдал проект и забыл', 'Считает результат бизнеса'],
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'ru' } = Astro.props;
+
+const rowsRu: [string, string][] = [
+  ['Делает что сказали', 'Говорю что нужно, а что лишнее'],
+  ['Думает кодом', 'Думаю деньгами клиента'],
+  ['Сдал проект и забыл', 'Считаю результат бизнеса'],
   ['Затягивает сроки', 'Чёткие этапы и дедлайны'],
-  ['Берёт за фичи', 'Берёт за результат'],
+  ['Берёт за фичи', 'Беру за результат'],
 ];
+const rowsEn: [string, string][] = [
+  ['Does what was asked', "I say what's needed — and what's not"],
+  ['Thinks in code', "I think in the client's money"],
+  ['Ships and forgets', 'I track the business result'],
+  ['Drags out deadlines', 'Clear stages and deadlines'],
+  ['Charges for features', 'I charge for the result'],
+];
+const rows = lang === 'en' ? rowsEn : rowsRu;
+const headingLeft = lang === 'en' ? 'A REGULAR DEVELOPER' : 'ОБЫЧНЫЙ РАЗРАБОТЧИК';
+const headingRight = lang === 'en' ? 'WITH ME' : 'СО МНОЙ';
 const cellStyle = 'padding:clamp(14px,2.5vw,20px) clamp(12px,3vw,24px);font-size:16px;line-height:1.5';
 ---
 
 <div class="card" style="overflow:hidden">
   <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--bg-raised);border-bottom:1px solid var(--border)">
     <div class="mono" style={`${cellStyle};font-size:13px;letter-spacing:0.1em;color:var(--muted);border-right:1px solid var(--border)`}>
-      ОБЫЧНЫЙ РАЗРАБОТЧИК
+      {headingLeft}
     </div>
-    <div class="mono" style={`${cellStyle};font-size:13px;letter-spacing:0.1em;color:var(--fg)`}>СО МНОЙ</div>
+    <div class="mono" style={`${cellStyle};font-size:13px;letter-spacing:0.1em;color:var(--fg)`}>{headingRight}</div>
   </div>
   {
     rows.map(([left, right], i) => (

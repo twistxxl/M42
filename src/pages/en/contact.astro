@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import { site } from '../../data/site';
+---
+
+<Layout title="Contact" showFloatingCta={false} lang="en">
+  <div style="min-height:100svh;display:flex;align-items:center;justify-content:center">
+    <div style="max-width:700px;margin:0 auto;padding:clamp(104px,16vw,140px) 20px clamp(56px,10vw,96px);text-align:center">
+      <div class="eyebrow" style="margin-bottom:24px">CONTACT</div>
+      <h1 style="margin:0 0 20px;font-size:clamp(36px,5.5vw,64px);font-weight:800;letter-spacing:-0.03em">
+        Let's discuss your project
+      </h1>
+      <p style="margin:0 0 44px;font-size:19px;line-height:1.6;color:var(--muted)">
+        Message me on Telegram — I'll reply within an hour
+      </p>
+      <Button href={site.telegramUrl} external>Message on Telegram →</Button>
+      <div class="mono" style="margin-top:32px;font-size:14px;color:var(--muted)">{site.telegramHandle}</div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,24 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PortfolioFilter from '../../../components/PortfolioFilter';
+import Button from '../../../components/Button.astro';
+import { getCases, categories } from '../../../data/cases';
+import { site } from '../../../data/site';
+
+const cases = getCases('en');
+---
+
+<Layout title="Portfolio" lang="en">
+  <div class="container-narrow" style="max-width:1200px;padding:clamp(104px,16vw,140px) 20px clamp(56px,10vw,96px)">
+    <h1 class="h1" style="margin-bottom:40px">Portfolio</h1>
+
+    <PortfolioFilter client:load items={cases} categories={categories} lang="en" />
+
+    <div style="margin-top:96px;text-align:center;border-top:1px solid var(--border);padding-top:72px">
+      <h2 style="margin:0 0 32px;font-size:clamp(26px,3.5vw,40px);font-weight:700;letter-spacing:-0.02em">
+        Like what you see? Let's discuss your project →
+      </h2>
+      <Button href={site.telegramUrl} external>Message on Telegram →</Button>
+    </div>
+  </div>
+</Layout>

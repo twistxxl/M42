@@ -1,26 +1,26 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import MetricCard from '../../components/MetricCard.astro';
-import Button from '../../components/Button.astro';
-import { cases } from '../../data/cases';
-import { site } from '../../data/site';
-import { useTranslations } from '../../i18n/ui';
+import Layout from '../../../layouts/Layout.astro';
+import MetricCard from '../../../components/MetricCard.astro';
+import Button from '../../../components/Button.astro';
+import { cases, localizeCase } from '../../../data/cases';
+import { site } from '../../../data/site';
+import { useTranslations } from '../../../i18n/ui';
 
 export function getStaticPaths() {
   return cases.map((c) => ({
     params: { id: c.id },
-    props: { item: c },
+    props: { item: localizeCase(c, 'en') },
   }));
 }
 
 const { item } = Astro.props;
-const t = useTranslations('ru');
+const t = useTranslations('en');
 ---
 
-<Layout title={item.title} description={item.task}>
+<Layout title={item.title} description={item.task} lang="en">
   <div class="container-narrow" style="padding:clamp(104px,16vw,140px) 20px clamp(56px,10vw,96px)">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:34px">
-      <a href="/portfolio" class="hover-fade" style="font-size:16px;font-weight:700;color:var(--muted)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:64px">
+      <a href="/en/portfolio" class="hover-fade" style="font-size:16px;font-weight:700;color:var(--muted)">
         {t('cta.backToProjects')}
       </a>
       {item.url && (
@@ -57,12 +57,12 @@ const t = useTranslations('ru');
 
     <div style="display:flex;flex-direction:column;gap:40px">
       <div>
-        <div class="eyebrow" style="margin-bottom:12px">ЗАДАЧА КЛИЕНТА</div>
+        <div class="eyebrow" style="margin-bottom:12px">CLIENT'S TASK</div>
         <p style="margin:0;font-size:18px;line-height:1.6">{item.fullTask}</p>
       </div>
 
       <div>
-        <div class="eyebrow" style="margin-bottom:12px">ЧТО БЫЛО СДЕЛАНО</div>
+        <div class="eyebrow" style="margin-bottom:12px">WHAT WAS DONE</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           {
             item.done.map((d) => (
@@ -76,19 +76,19 @@ const t = useTranslations('ru');
       </div>
 
       <div>
-        <div class="eyebrow" style="margin-bottom:12px">СТЕК</div>
+        <div class="eyebrow" style="margin-bottom:12px">STACK</div>
         <p style="margin:0;font-size:17px;line-height:1.6;color:var(--muted)">{item.stack}</p>
       </div>
 
       <div>
-        <div class="eyebrow" style="margin-bottom:16px">РЕЗУЛЬТАТ В ЦИФРАХ</div>
+        <div class="eyebrow" style="margin-bottom:16px">RESULT IN NUMBERS</div>
         <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
           {item.metrics.map((m) => <MetricCard n={m.n} l={m.l} />)}
         </div>
       </div>
 
       <div style="border-top:1px solid var(--border);padding-top:48px;text-align:center">
-        <Button href={site.telegramUrl} external>Хочу так же →</Button>
+        <Button href={site.telegramUrl} external>I want this too →</Button>
       </div>
     </div>
   </div>
